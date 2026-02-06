@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Rose Day ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 28px 22px;
+      width: 92vw;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease;
+      z-index: 2;
+    }
+
+    h1 { font-size: 2rem; margin-bottom: 6px; }
+    h2 { font-size: 1.2rem; font-weight: 400; margin-bottom: 18px; }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    button {
+      background: white;
+      color: #ff4b7d;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    button:hover { background: #ffe3ec; transform: scale(1.03); }
+
+    .hidden-message {
+      display: none;
+      margin-top: 18px;
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+
+    .hearts span {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 18px;
+      animation: rise 6s linear infinite;
+    }
+
+    .petal {
+      position: fixed;
+      top: -10%;
+      font-size: 20px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes rise { 0% { bottom: -10%; opacity: 0; } 20% { opacity: 1; } 100% { bottom: 110%; opacity: 0; } }
+    @keyframes fall { 0% { transform: translateX(0) rotate(0deg); opacity: 1; } 100% { transform: translateX(60px) rotate(360deg); top: 110%; opacity: 0; } }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.1rem; }
+      p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lockScreen" style="position:fixed; inset:0; background:linear-gradient(135deg,#ff758c,#ff7eb3); display:flex; align-items:center; justify-content:center; z-index:10; text-align:center;">
+    <div>
+      <div style="font-size:3rem; margin-bottom:15px;">🔐</div>
+      <h1 style="font-size:2.2rem;">Unlock my heart</h1>
+      <p style="opacity:0.9; margin-bottom:25px;">Tap to see what’s inside ❤️</p>
+      <button id="unlockBtn">Unlock 💖</button>
+    </div>
+  </div>
+
+  
+
+  <div class="card">
+    <div style="font-size:1rem; letter-spacing:1px; margin-bottom:10px; opacity:0.9;">From <strong>Mihir</strong> to <strong>Smrutishree</strong> 💕</div>
+
+    <h1>Happy Rose Day</h1>
+    <h2>Smrutishree ❤️</h2>
+    <p id="typing"></p>
+    <button id="surpriseBtn">Tap for a surprise 💌</button>
+
+    <div class="hidden-message" id="message">
+      I choose you, Smrutishree. Today, tomorrow, and always 🌹❤️<br><br>
+      — Yours forever, Mihir
+    </div>
+
+    <div style="margin-top:18px; font-size:1.15rem; font-weight:600;">You are my forever rose 🌹</div>
+  </div>
+
+  <div class="hearts"></div>
+
+  <script>
+    // Typing effect
+    const text = "Just like this rose, you make my world more beautiful. Your smile brightens my days, and your love colors my life.";
+    let index = 0;
+    const typingElement = document.getElementById('typing');
+
+    function typeText() {
+      if (index < text.length) {
+        typingElement.innerHTML += text.charAt(index++);
+        setTimeout(typeText, 40);
+      }
+    }
+
+    // Effects
+    const hearts = document.querySelector('.hearts');
+
+    function startEffects() {
+      setInterval(() => {
+        const span = document.createElement('span');
+        span.innerHTML = '❤';
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        hearts.appendChild(span);
+        setTimeout(() => span.remove(), 6000);
+      }, 300);
+
+      setInterval(() => {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.innerHTML = '🌹';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 10000);
+      }, 700);
+    }
+
+    // Unlock logic
+    document.getElementById('unlockBtn').addEventListener('click', () => {
+      document.getElementById('lockScreen').style.display = 'none';
+      typeText();
+      startEffects();
+      
+    });
+
+    document.getElementById('surpriseBtn').addEventListener('click', () => {
+      document.getElementById('message').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
